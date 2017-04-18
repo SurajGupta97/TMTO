@@ -8,13 +8,13 @@ class Cipher:
 		self.keylen = keylen
 		self.msglen = msglen
 		self.permute = random.sample(range(0, msglen), keylen)
-		print self.permute
+		# print self.permute
 		# self.permute = [0,1,2,3,4,5,6,7]
 		self.iv = IV
-		print "[*] Params passed to Cipher class:"
-		print "[*] plaintext: ", plaintext
-		print "[*] keylen: ", keylen
-		print "[*] msglen: ", msglen
+		# print "[*] Params passed to Cipher class:"
+		# print "[*] plaintext: ", plaintext
+		# print "[*] keylen: ", keylen
+		# print "[*] msglen: ", msglen
 
 
 	def f(self, key, display=False):
@@ -28,9 +28,9 @@ class Cipher:
 		plaintext = '0'*(2*(self.msglen/8)-len(plaintext)) + plaintext
 		plaintext = plaintext.decode("hex")
 
-		if display:
-			print "[*] key: ", key.encode("hex")
-			print "[*] plaintext:" , plaintext.encode("hex")
+		# if display:
+		# 	print "[*] key: ", key.encode("hex")
+		# 	print "[*] plaintext:" , plaintext.encode("hex")
 
 		# Encryption code
 		if self.cipher=="DES":
@@ -50,17 +50,17 @@ class Cipher:
 		return int(cipher, 2)
 
 	def des_encrypt(self, key, plaintext, display=False):
-		if display:
-			print "[*] plaintext: ", plaintext.encode("hex")
-			print "[*] key: ", key.encode("hex")
+		# if display:
+		# 	print "[*] plaintext: ", plaintext.encode("hex")
+		# 	print "[*] key: ", key.encode("hex")
 		des = DES.new(key, DES.MODE_CBC, self.iv)
 		cphr = des.encrypt(plaintext)
 		return cphr
 
 	def aes_encrypt(self, key, plaintext, display=False):
-		if display:
-			print "[*] plaintext: ", plaintext.encode("hex")
-			print "[*] key: ", key.encode("hex")
+		# if display:
+		# 	print "[*] plaintext: ", plaintext.encode("hex")
+		# 	print "[*] key: ", key.encode("hex")
 		aes = AES.new(key, AES.MODE_CBC, '0'*16)
 		cphr = aes.encrypt(plaintext)
 		return cphr

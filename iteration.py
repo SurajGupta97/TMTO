@@ -21,34 +21,24 @@ def iterate(cipher,m,t,PlainText,CipherText,N):
 		ep = random.sample(range(1,N),m)
 		for i in range(m):
 			xi=sp[i]
-			print xi,
 			for j in range(t):
 				xi=cip.f(xi)
-				print xi,
-			print
 			ep[i]=xi
 			table.append((sp[i],ep[i]))
 
 		table.sort(key=operator.itemgetter(1))
-		print table
+		# print table
 
 		strow = [x[0] for x in table]
 		endrow = [x[1] for x in table]
 
 		flag=False
-		print "[*] ciphertext:",CipherText
+
 		yi=cip.R(CipherText)
-		print "[*] yi:",yi,
-		asdf = yi
-		for k in range(t):
-			asdf = cip.f(asdf)
-			print asdf,
-		print
+		
 		for i in range(t):
 			temp=binary_search(endrow,yi)
 			if temp!=-1:
-				print i
-				print temp
 				te = strow[temp]
 				for j in range(t-1-i):
 					te=cip.f(te)
@@ -58,7 +48,7 @@ def iterate(cipher,m,t,PlainText,CipherText,N):
 					asd = asd.decode("hex")
 
 					dfg = hex(PlainText).replace("0x", "").replace("L", "")
-					dfg = '0'*(2*(128/8)-len(dfg)) + dfg
+					dfg = '0'*(2*(128/8)-len(dfg)) + dfg	
 					dfg = dfg.decode("hex")
 
 					ct = int((cip.aes_encrypt(asd, dfg)).encode("hex"), 16)
@@ -72,15 +62,10 @@ def iterate(cipher,m,t,PlainText,CipherText,N):
 		if flag==True:
 			return (flag,kooy)
 
-	return (False, "bekar code hai mera!")
+	return (False, -1)
 
-if __name__ == "__main__":
-	N = 256
-	m =	6
-	t = 6
-	pt = 12
+def function3(cipher,m,t,N,pt):
 	key = randrange(N)
-
 	key = hex(key).replace("0x", "").replace("L", "")
 	key = '0'*((2*(128/8)-len(key))) + key
 	key = key.decode("hex")
@@ -93,22 +78,78 @@ if __name__ == "__main__":
 	ciphertext = aes.encrypt(plaintext)
 	ciphertext = int(ciphertext.encode("hex"), 16)
 
-	print "[*] ciphertext212", ciphertext
+	print "[*] Ciphertext", ciphertext
 
-	_, key =  iterate("AES",m,t,pt,ciphertext,N)
-	print key	
+	fl, key =  iterate("AES",m,t,pt,ciphertext,N)
+	if fl==False:
+		print "Key not found"
+	else:
+		print "Key: ",
+		print key
 
-	key = hex(key).replace("0x", "").replace("L", "")
-	key = '0'*((2*(128/8)-len(key))) + key
-	key = key.decode("hex")
+def function2(cipher,m,t,N,pt,iter):
+	ct = 0
+	for i in range(iter):
+		key = randrange(N)
+		key = hex(key).replace("0x", "").replace("L", "")
+		key = '0'*((2*(128/8)-len(key))) + key
+		key = key.decode("hex")
 
-	c = Cipher("AES", plaintext, 8, 128)
-	plaintext = hex(pt).replace("0x", "").replace("L", "")
-	plaintext = '0'*(2*(128/8)-len(plaintext)) + plaintext
-	plaintext = plaintext.decode("hex")
+		plaintext = hex(pt).replace("0x", "").replace("L", "")
+		plaintext = '0'*(2*(128/8)-len(plaintext)) + plaintext
+		plaintext = plaintext.decode("hex")
 
-	ct =  c.aes_encrypt(key, plaintext, True)
-	print int(ct.encode("hex"), 16)
+		aes = AES.new(key, AES.MODE_CBC, '0'*16)
+		ciphertext = aes.encrypt(plaintext)
+		ciphertext = int(ciphertext.encode("hex"), 16)
 
-	# print c.f(3, True)
-	# print c.f(2, True)
+		fl, key =  iterate("AES",m,t,pt,ciphertext,N)
+		if fl==True:
+			ct =ct+1
+
+	print "Success rate",
+	print ct*(1.0)/iter
+
+def function1(cipher,N,pt,iter):
+	m=6
+	t=6
+	ct=0
+	for i in range(iter):
+		key = randrange(N)
+		key = hex(key).replace("0x", "").replace("L", "")
+		key = '0'*((2*(128/8)-len(key))) + key
+		key = key.decode("hex")
+
+		plaintext = hex(pt).replace("0x", "").replace("L", "")
+		plaintext = '0'*(2*(128/8)-len(plaintext)) + plaintext
+		plaintext = plaintext.decode("hex")
+
+		aes = AES.new(key, AES.MODE_CBC, '0'*16)
+		ciphertext = aes.encrypt(plaintext)
+		ciphertext = int(ciphertext.encode("hex"), 16)
+
+		fl, key =  iterate("AES",m,t,pt,ciphertext,N)
+		if fl==True:
+			ct = ct+1
+
+	value = ct*(1.0)/iter
+
+if __name__ == "__main__":
+	N = 256
+	m =	6
+	t = 6
+	pt = 12
+	
+	function2("AES",m,t,N,pt,1000)
+
+	# key = hex(key).replace("0x", "").replace("L", "")
+	# key = '0'*((2*(128/8)-len(key))) + key
+	# key = key.decode("hex")
+
+	# c = Cipher("AES", plaintext, 8, 128)
+	# plaintext = hex(pt).replace("0x", "").replace("L", "")
+	# plaintext = '0'*(2*(128/8)-len(plaintext)) + plaintext
+	# plaintext = plaintext.decode("hex")
+
+	# ct =  c.aes_encrypt(key, plaintext, True)
+	# print int(ct.encode("hex"), 16)
