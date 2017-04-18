@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+from iteration import *
 
 def title(request):
 	return render(request, 'index.html', {'title': 'TMTO'})
@@ -36,7 +37,7 @@ def function1_oninput(request):
 		n = ( int(request.POST.get('N')) )
 
 	if(request.POST.get('plainText')):
-		plainText = request.POST.get('plainText')
+		plainText = int(request.POST.get('plainText'))
 
 	if(request.POST.get('iter')):
 		iter = ( int(request.POST.get('iter')) )
@@ -44,10 +45,11 @@ def function1_oninput(request):
 	if(request.POST.get('cipher')):
 		cipher = request.POST.get('cipher')
 
-	if(request.POST.get('key')):
-		key = request.POST.get('key')				
+	# if(request.POST.get('key')):
+	# 	key = request.POST.get('key')				
 
-	data = str(plainText)+str(iter)+str(cipher)+str(key)
+	# data = str(plainText)+str(iter)+str(cipher)+str(key)
+	data = function11(cipher,n,plainText,iter)
 	return HttpResponse(data)
 
 @csrf_exempt
@@ -73,7 +75,7 @@ def function2_oninput(request):
 		t = ( int(request.POST.get('t')) )
 
 	if(request.POST.get('plainText')):
-		plainText = request.POST.get('plainText')
+		plainText = int(request.POST.get('plainText'))
 
 	if(request.POST.get('iter')):
 		iter = ( int(request.POST.get('iter')) )
@@ -81,10 +83,11 @@ def function2_oninput(request):
 	if(request.POST.get('cipher')):
 		cipher = request.POST.get('cipher')
 
-	if(request.POST.get('key')):
-		key = request.POST.get('key')				
+	# if(request.POST.get('key')):
+	# 	key = request.POST.get('key')				
 
-	data = str(m)+str(t)+str(plainText)+str(iter)+str(cipher)+str(key)
+	# data = str(m)+str(t)+str(plainText)+str(iter)+str(cipher)+str(key)
+	data = function22(cipher,m,t,n,plainText,iter)
 	return HttpResponse(data)
 
 @csrf_exempt
@@ -109,7 +112,7 @@ def function3_oninput(request):
 		t = ( int(request.POST.get('t')) )
 
 	if(request.POST.get('plainText')):
-		plainText = request.POST.get('plainText')
+		plainText = int(request.POST.get('plainText'))
 
 	if(request.POST.get('cipher')):
 		cipher = request.POST.get('cipher')
@@ -117,5 +120,13 @@ def function3_oninput(request):
 	if(request.POST.get('key')):
 		key = request.POST.get('key')				
 
-	data = str(m)+str(t)+str(plainText)+str(cipher)+str(key)
+
+	# data = str(m)+str(t)+str(plainText)+str(cipher)+str(key)
+	fl, key =  function33(cipher,m,t,n,plainText)
+	data = None
+	if fl==False:
+		data = "Key not found"
+	else:
+		data = "Key: " + str(key)
+
 	return HttpResponse(data)
