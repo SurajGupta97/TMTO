@@ -108,7 +108,7 @@ def function22(cipher,m,t,N,pt,iter):
 		if fl==True:
 			ct =ct+1
 
-	print "Success rate",
+	# print "Success rate",
 	return ct*(1.0)/iter
 
 def function11(cipher,N,pt,iter):

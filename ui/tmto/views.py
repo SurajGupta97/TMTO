@@ -87,7 +87,7 @@ def function2_oninput(request):
 	# 	key = request.POST.get('key')				
 
 	# data = str(m)+str(t)+str(plainText)+str(iter)+str(cipher)+str(key)
-	data = function22(cipher,m,t,n,plainText,iter)
+	data = "Accuracy observed is: " + str(function22(cipher,m,t,n,plainText,iter))
 	return HttpResponse(data)
 
 @csrf_exempt

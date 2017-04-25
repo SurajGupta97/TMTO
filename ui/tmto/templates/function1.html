@@ -35,7 +35,7 @@ font-size: 16px;"> Last access : 30 May 2014 &nbsp; <a href="#" class="btn btn-d
 			<div class="sidebar-collapse">
 				<ul class="nav" id="main-menu">
 				<li class="text-center">
-					<img src="static/img/find_user.png" class="user-image img-responsive"/>
+					<img src="static/img/find_user.jpg" class="user-image img-responsive"/>
 					</li>
 				
 					
@@ -208,29 +208,35 @@ font-size: 16px;"> Last access : 30 May 2014 &nbsp; <a href="#" class="btn btn-d
 			
 			var n = $('#n').val();
 			var plainText = $('#plainText').val();
-            var iter = $('#iter').val();
-            var cipher = $('#cipher').val();
-            // var key;
-         //    if( document.getElementById('manualKey').checked ){
-         //    	key = $('#key').val();
-        	// }
+			var iter = $('#iter').val();
+			var cipher = $('#cipher').val();
+			// var key;
+		 //    if( document.getElementById('manualKey').checked ){
+		 //    	key = $('#key').val();
+			// }
 			e.preventDefault();
 			$.ajax({
-	            type: 'POST',
-	            url: '/tmto/function1_oninput',
-	            data: {
-	            		'N':n,
-	            		'plainText':plainText,
-	            		'iter':iter,
-	            		'cipher':cipher,
-	            		// 'key':key
-	            		// 'csrfmiddlewaretoken':$('input[name=csrfmiddlewaretoken]').val()
-	            		},
-	            success: function(data) {
-	                $('#outputModal').find('.modal-body').html(data);
-	            }
-	        });
+				type: 'POST',
+				url: '/tmto/function1_oninput',
+				data: {
+						'N':n,
+						'plainText':plainText,
+						'iter':iter,
+						'cipher':cipher,
+						// 'key':key
+						// 'csrfmiddlewaretoken':$('input[name=csrfmiddlewaretoken]').val()
+						},
+				success: function(data) {
+					$('#outputModal').find('.modal-body').html(data);
+				}
+			});
 		});
+	</script>
+	<script type="text/javascript">  
+				$(".modal").on("hidden.bs.modal", function(){
+					$(".modal-body").html("<p>Processing...</p>");
+				});
+
 	</script>
 	
    
