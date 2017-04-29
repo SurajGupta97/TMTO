@@ -25,10 +25,10 @@
 				</button>
 				<a class="navbar-brand" href="/tmto">{{ title }}</a> 
 			</div>
-  <div style="color: white;
+<div style="color: white;
 padding: 15px 50px 5px 50px;
 float: right;
-font-size: 16px;"> Last access : 30 May 2014 &nbsp; <a href="#" class="btn btn-danger square-btn-adjust">Logout</a> </div>
+font-size: 14px;"> Developed under the guidance of Dr. Sugata Gangopadhyay &nbsp;</div>
 		</nav>   
 		   <!-- /. NAV TOP  -->
 				<nav class="navbar-default navbar-side" role="navigation">
@@ -55,14 +55,14 @@ font-size: 16px;"> Last access : 30 May 2014 &nbsp; <a href="#" class="btn btn-d
 						<a  href="table.html"><i class="fa fa-table fa-3x"></i> Table Examples</a>
 					</li> -->
 					<li  >
-						<a  href="function1"><i class="fa fa-edit fa-3x"></i> Function 1 </a>
-					</li>   
-					<li  >
-						<a class="active-menu"  href="function2"><i class="fa fa-edit fa-3x"></i> Function 2 </a>
-					</li>	 
-					<li  >
-						<a  href="function3"><i class="fa fa-edit fa-3x"></i> Function 3 </a>
-					</li> 
+                        <a  href="function1"><i class="fa fa-edit fa-3x"></i> Analyse m-t </a>
+                    </li>    
+                    <li  >
+                        <a  href="function2"><i class="fa fa-edit fa-3x"></i> Iterate </a>
+                    </li>    
+                    <li  >
+                        <a  href="function3"><i class="fa fa-edit fa-3x"></i> Single Attack </a>
+                    </li> 
 				</ul>
 			   
 			</div>
@@ -73,7 +73,7 @@ font-size: 16px;"> Last access : 30 May 2014 &nbsp; <a href="#" class="btn btn-d
 			<div id="page-inner">
 				<div class="row">
 					<div class="col-md-12">
-					 <h2>Function 2</h2>
+					 <h2>Iterate</h2>
 					</div>
 				</div>
 				 <!-- /. ROW  -->
@@ -137,7 +137,8 @@ font-size: 16px;"> Last access : 30 May 2014 &nbsp; <a href="#" class="btn btn-d
 														<h4 class="modal-title">Output</h4>
 													  </div>
 													  <div class="modal-body">
-														<p>Processing...</p>
+														<img src="static/img/loader.gif" class="img-responsive center-block"/>
+                                                        <p>Processing...</p>
 													  </div>
 													  <div class="modal-footer">
 														<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -176,6 +177,8 @@ font-size: 16px;"> Last access : 30 May 2014 &nbsp; <a href="#" class="btn btn-d
 												<label>Enter Key</label>
 												<input class="form-control" id="key" type="text" placeholder="Enter key" disabled/>
 											</div> -->
+											<br>
+											<br>
 											<br>
 											<div class="col-xs-6 text-center"> 
 												<button type="reset" id='resetButton' class="btn btn-danger" onclick="var input = document.getElementById('key'); input.disabled = true;">Reset Button</button>
@@ -240,7 +243,7 @@ font-size: 16px;"> Last access : 30 May 2014 &nbsp; <a href="#" class="btn btn-d
 	</script>
 	<script type="text/javascript">  
 				$(".modal").on("hidden.bs.modal", function(){
-					$(".modal-body").html("<p>Processing...</p>");
+					$(".modal-body").html('<img src="static/img/loader.gif" class="img-responsive center-block"/><p>Processing...</p>');
 				});
 
 	</script>

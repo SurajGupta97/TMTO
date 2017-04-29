@@ -64,8 +64,9 @@ def iterate(cipher,m,t,PlainText,CipherText,N):
 
 	return (False, -1)
 
-def function33(cipher,m,t,N,pt):
-	key = randrange(N)
+def function33(cipher,m,t,N,pt,key):
+	if key == -1:
+		key = randrange(N)
 	key = hex(key).replace("0x", "").replace("L", "")
 	key = '0'*((2*(128/8)-len(key))) + key
 	key = key.decode("hex")

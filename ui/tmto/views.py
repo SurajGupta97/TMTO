@@ -2,6 +2,8 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from iteration import *
+from plot import plot
+import thread
 
 def title(request):
 	return render(request, 'index.html', {'title': 'TMTO'})
@@ -49,8 +51,11 @@ def function1_oninput(request):
 	# 	key = request.POST.get('key')				
 
 	# data = str(plainText)+str(iter)+str(cipher)+str(key)
-	data = function11(cipher,n,plainText,iter)
-	return HttpResponse(data)
+	# data = 'Done'
+	# thread.start_new_thread( plot,(cipher, n,plainText,iter))
+	path = plot(cipher, n, plainText, iter)
+	
+	return HttpResponse(path)
 
 @csrf_exempt
 def function2_oninput(request):
@@ -118,11 +123,13 @@ def function3_oninput(request):
 		cipher = request.POST.get('cipher')
 
 	if(request.POST.get('key')):
-		key = request.POST.get('key')				
+		key = int(request.POST.get('key'))
+	else:
+		key = int(-1)					
 
 
 	# data = str(m)+str(t)+str(plainText)+str(cipher)+str(key)
-	fl, key =  function33(cipher,m,t,n,plainText)
+	fl, key =  function33(cipher,m,t,n,plainText,key)
 	data = None
 	if fl==False:
 		data = "Key not found"
